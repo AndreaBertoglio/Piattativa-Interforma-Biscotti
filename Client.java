@@ -11,10 +11,12 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Vector;
+import java.util.concurrent.*;
 
 import javax.swing.JButton;
 
 import it.uni.provaserver.Choice;
+import it.uni.provaserver.ThreadInput;
 
 public class Client {
 	
@@ -27,11 +29,24 @@ public class Client {
 		final String hostName = "localhost";
 	try (
 					Socket client = new Socket(hostName,port);
-				    ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(client.getInputStream()));
-			        ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(client.getOutputStream()));
-		
+					ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(client.getOutputStream())); 
 			){
-		        Choice a = (Choice)in.readObject();
+		
+				ThreadInput input= new ThreadInput(client);
+		
+				ExecutorService executor = Executors.newFixedThreadPool(1);
+				Future<Object> read= executor.submit(input);
+		
+		        Choice a= null;
+				try {
+					a = (Choice)read.get();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				Graphic g= new Graphic();
 				Vector<JButton> answers= g.buttons;
 				for(int i=0;i<answers.size();i++) {
@@ -39,14 +54,29 @@ public class Client {
 				}
 				g.textArea.setText(a.getQuestion().getTesto());
 				g.getMainPanel().repaint(); 
+				
+				
 			    out.writeObject(gerryScottie(g));
-			    String scossa=(String)in.readObject();
-			    g.textArea.setText(scossa);
-			    	    		
+			    
+				Object maria=null;
+				
+				do{
+				    try {
+						maria=(String)read.get();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					} catch (ExecutionException e) {
+						e.printStackTrace();
+					}
+				    String scossa=(String)maria;
+				    g.textArea.setText(scossa);
+			    } while(maria==null);
+			    g.getMainPanel().repaint();
+			    
+			    
 			} catch(IOException e){}
-	          catch(ClassNotFoundException e) {}
 		} 
-	
+
 	private static Integer gerryScottie(Graphic g) {
 		Integer d;
 		do {
@@ -56,5 +86,6 @@ public class Client {
 		return d;
 	}
 }
+
 
 

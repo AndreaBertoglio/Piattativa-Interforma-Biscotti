@@ -12,7 +12,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketImpl;
 import java.util.Vector;
-
+import java.util.concurrent.*;
 
 public class Server {
 
@@ -24,26 +24,36 @@ public class Server {
 		int port = 9999;
 		
 		Player giocatore= new Player("bug");
-		Integer accesa=null;
+		Integer accesa=2;
 		String scossa;
 		
 		try(	
 				ServerSocket server = new ServerSocket(port);
 				Socket client = server.accept();
 				ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(client.getOutputStream()));
-				ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(client.getInputStream()));
 		){
 		
+			ThreadInput input= new ThreadInput(client);
+			
+			ExecutorService executor = Executors.newFixedThreadPool(1);
+			Future<Object> read= executor.submit(input);
+			
 			Vector<Option> optionA = new Vector<>();
 			optionA.add(new Option("A",1));
 			optionA.add(new Option("B",2));
 			optionA.add(new Option("C",3));
 			optionA.add(new Option("D",4));
 			Choice a = new Choice(new Question("domanda"),optionA, 2);
-			out.writeObject(a); 
-			System.out.println("mandato");
-			accesa=(Integer)in.readObject();
-			System.out.println("accesa");
+			out.writeObject(a);
+			
+			try {
+				accesa=(Integer)read.get();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			}
+		
 			if(accesa==a.getCorrectAnswer()) {
 				scossa= "va beeneeeee";
 				giocatore.modScore(POINTS_RIGHT_ANSWER);
