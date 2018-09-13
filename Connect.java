@@ -43,11 +43,7 @@ public class Connect extends Thread {
 
 			out.writeObject(server.getRanking());
 			
-			String playerName=(String)in.readObject();
-			giocatore= new Player(playerName);
-			server.getRanking().add(giocatore);
-			Collections.sort(server.getRanking());
-			server.addPlayer();
+			newPlayer();
 			
 			out.writeObject(server.getRanking());
 			
@@ -99,5 +95,13 @@ public class Connect extends Thread {
 		}
 		
 		return scossa;
+	}
+	
+	private void newPlayer(){
+		String playerName=(String)in.readObject();
+		giocatore= new Player(playerName);
+		server.getRanking().add(giocatore);
+		Collections.sort(server.getRanking());
+		server.addPlayer();
 	}
 }
