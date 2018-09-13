@@ -23,7 +23,7 @@ public class Choice implements Serializable{
 		return opzioni;
 	}
 	
-	public Option getOptions(int index){
+	public Option getOption(int index){
 		return opzioni.get(index);
 	}
 	
