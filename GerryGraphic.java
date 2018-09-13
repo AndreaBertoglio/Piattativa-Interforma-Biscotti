@@ -17,6 +17,7 @@ import it.uni.provaserver.Choice;
 
 public class GerryGraphic {
 	
+	private static final int BUTTON_NUMBER= 4;
 	private static final int BUTTON_RATE_X= 3; 
 	private static final int SPACE_RATE_X= 9;
 	private static final int BUTTON_RATE_Y= 10; 
@@ -105,7 +106,7 @@ public class GerryGraphic {
     
     public void buildPanel(JPanel _panel) {
     	_panel.add(textArea);
-    	for(int i=0; i<4; i++) {
+    	for(int i=0; i<BUTTON_NUMBER; i++) {
     		_panel.add(buttons.get(i));
     	}
     }
