@@ -27,6 +27,8 @@ public class Client {
 				out = new ObjectOutputStream(client.getOutputStream()); 
 				in = new ObjectInputStream(client.getInputStream());
 				
+				//------------------FASE 1------------------------
+				
 				MainGraphic mainGraphic=new MainGraphic();
 				mainGraphic.setOut(out);
 				mainGraphic.setIn(in);
@@ -34,12 +36,11 @@ public class Client {
 				mainGraphic.updateRanking();
 				
 				mainGraphic.updateRanking();
+				//------------------------FASE 2--------------------
 				
-				/*int i=0;
-				do{
-					i=(int)in.readObject();
-				}while(i<4);*/
+				String gameToStart = (String)in.readObject();
 				
+				//------------------------FASE 3----------------------
 				startGame(in, mainGraphic);
 				
 				out.flush();
@@ -60,6 +61,6 @@ public class Client {
 		do {
 			start=(String)in.readObject();
 		} while(start==null);
-		mainGraphic.loadGraphic();
+		mainGraphic.loadGraficaDelGioco();
 	} 
 }

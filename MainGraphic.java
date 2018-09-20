@@ -131,7 +131,7 @@ public class MainGraphic {
 		
 	}
 	
-	public void loadGraphic() {
+	public void loadGraficaDelGioco() {
 		playerNameField.setVisible(false);
 		playerNameLabel.setVisible(false);
 		joinButton.setVisible(false);
