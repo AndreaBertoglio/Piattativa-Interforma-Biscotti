@@ -111,18 +111,30 @@ public class Server extends Thread {
 		return playersNumber;
 	}
 
+	/**
+	* Incrementa di 1 il numero dei giocatori
+	* @return void
+	*/
 	public void addPlayer() {
 		playersNumber++;
 	}
 	
-	
 
+	/**
+	* Aggiunge un nuovo giocatore 
+	* @param c !!!NON SO COSA SCRIVERE!!!<-------------------------------DA MODIFICARE 8==========D
+	* @return void
+	*/
 	private void addNewPlayer(Connect c) throws IOException, ClassNotFoundException {
 		String playerName=(String)c.getIn().readObject();
 		players.getGiocatori().add(new Player(playerName));
 		addPlayer();
 	}
 
+	/**
+	* Crea una domanda con le relative opzioni di risposta numerate
+	* @return void
+	*/
 	private Choice choiceCreator(){
 		Vector<Option> optionA = new Vector<>();
 		optionA.add(new Option("A",1));
@@ -133,6 +145,12 @@ public class Server extends Thread {
 		return a;
 	}
 	
+	/**
+	* Controlla che la risposta sia corretta e assegna i punti di conseguenza
+	* @param a	Domanda da controllare
+	* @param i	Numero del giocatore che ha risposto
+	* @return true se la risposta è corretta, false altrimenti
+	*/
 	private boolean answerCheck(Choice a, int i) throws ClassNotFoundException, IOException{
 		
 		Integer accesa=null;
