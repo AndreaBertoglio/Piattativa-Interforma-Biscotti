@@ -32,7 +32,14 @@ public class GerryGraphic {
     private JButton answer_two;
     private JButton answer_three;
     private JButton answer_four;
-    
+
+    /**
+    * Inizializza la grafica del gioco Gerry
+    * @param _in	Stream di dati dal server
+    * @param _out 	Stream di dati verso il server
+    * @param _panel 	Pannello da modificare
+    * @return void
+    */
     private void initialize(ObjectInputStream _in, ObjectOutputStream _out, JPanel _panel) {
 		
 		textArea.setBounds(0, 0, _panel.getWidth(), _panel.getHeight()/TEXT_AREA_RATE);
@@ -107,6 +114,12 @@ public class GerryGraphic {
 		buildPanel(_panel);
 	}
     
+	
+    /**
+    * Aggiunge al pannello i pulsanti e l'area di testo 
+    * @param _panel 	Pannello da modificare
+    * @return void
+    */	
     public void buildPanel(JPanel _panel) {
     	_panel.add(textArea);
     	for(int i=0; i<4; i++) {
@@ -119,6 +132,11 @@ public class GerryGraphic {
     }
     
 
+    /**
+    * Mostra la domanda e le relative 4 opzioni di risposta
+    * @param a 	Domanda e relative opzioni
+    * @return void
+    */
 	public void showQuestion(Choice a){
 		Vector<JButton> answers= buttons;
 		for(int i=0;i<answers.size();i++) {
@@ -128,24 +146,35 @@ public class GerryGraphic {
 		panel.repaint();
 	}
 	
+    /**
+    * Controlla se la risposta fornita è esatta e modifica il colore del bottone in verde se esatta,
+    * rosso se errata.
+    * @param _in	Risposta esatta fornita dal server
+    * @return void
+    */
 	public void result(ObjectInputStream _in) {
 		boolean scossa=false;
 		try {
 				scossa=(boolean)_in.readObject();
-		    
+
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		if(scossa) buttons.get(laccendiamo).setBackground(Color.GREEN);
-			
+
 		else buttons.get(laccendiamo).setBackground(Color.RED);
-		
+
 	    panel.repaint();
 	}
 	
+    /**
+    * Legge la domanda e le relative opzioni mandate dal server
+    * @param in	Domanda e relative opzioni
+    * @return la domanda e le opzioni
+    */
 	public Choice readChoice(ObjectInputStream in){
 		Choice a= null;
 		try {
@@ -156,29 +185,39 @@ public class GerryGraphic {
 			e.printStackTrace();
 		}
 		return a;
-		
-	}
-	
 
+	}
+
+    /**
+    * Disegna la grafica completa del gioco
+    * @param _in	Stream di dati dal server
+    * @param _out 	Stream di dati verso il server
+    * @param _panel 	Pannello da modificare
+    * @return void
+    */
 	public void paintGame(ObjectInputStream _in, ObjectOutputStream _out, JPanel _panel) {
-		
+
 		this.initialize(_in, _out, _panel);
 		this.showQuestion(readChoice(_in));
-		
+
 	}
-	
+
 	public Vector<JButton> getButtons(){
 		return buttons;
 	}
-	
+
 	public JTextArea getTextArea() {
 		return textArea;
 	}
-	
+
 	public Integer getLaccendiamo() {
 		return laccendiamo;
 	}
-	
+
+    /**
+    * Resetta la variabile contenente la risposta esatta
+    * @return void
+    */
 	public void laSpegnamo() {
 		laccendiamo=null;
 	}
