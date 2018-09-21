@@ -20,9 +20,7 @@ public class Graphic {
     
     private Integer laccendiamo=null;
 
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -35,15 +33,13 @@ public class Graphic {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public Graphic() {
 		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inizializza la grafica della frame
+	 * @return void
 	 */
 	private void initialize() {
 		frame = new JFrame();
