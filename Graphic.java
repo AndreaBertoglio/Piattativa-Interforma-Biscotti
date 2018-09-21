@@ -36,14 +36,16 @@ public class Graphic {
 	}
 
 	/**
-	 * Create the application.
+	 * Carica la grafica iniziale
+	 * @return void
 	 */
 	public Graphic() {
 		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inizializza il contenuto della frame
+	 * @return void
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -126,6 +128,10 @@ public class Graphic {
 		return laccendiamo;
 	}
 	
+	/**
+	* Resetta la variabile contenente la risposta corretta
+	* @return void
+	*/
 	public void laSpegnamo() {
 		laccendiamo=null;
 	}
