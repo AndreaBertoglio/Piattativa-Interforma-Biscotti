@@ -53,7 +53,13 @@ public class Client {
 				e.printStackTrace();
 			} 
 		}
-
+    	/**
+	* Avvia il gioco dopo aver ricevuto il segnale dal server
+	*
+	* @param in 		Messaggio ricevuto dal server
+	* @param mainGraphic 	Grafica da caricare
+	* @return void
+	*/
 	private static void startGame(ObjectInputStream in, MainGraphic mainGraphic)
 			throws IOException, ClassNotFoundException {
 		
