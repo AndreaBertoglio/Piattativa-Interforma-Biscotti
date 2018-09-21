@@ -13,6 +13,11 @@ public class Player implements Comparable<Player>, Serializable{
 		score=INITIAL_SCORE;
 	}
 	
+	/**
+	* IModifica il punteggio del giocatore
+	* @param value 	Punteggio da assegnare 
+	* @return void
+	*/
 	public void modScore(double value) {
 		score=score+value;
 	}
@@ -29,6 +34,11 @@ public class Player implements Comparable<Player>, Serializable{
 		return name + " " + score ;
 	}
 
+	/**
+	* Verifica quale tra due giocatori ha il punteggio maggiore
+	* @param _giocatore 	Giocatore da confrontare
+	* @return 10 se il giocatore con cui viene invocato il metodo ha il punteggio maggiore, -10 altrimenti
+	*/
 	public int compareTo(Player _giocatore) {
 		if(this.getScore()>_giocatore.getScore()) return 10;
 		return -10;
