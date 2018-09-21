@@ -1,27 +1,15 @@
 package it.uni.provaclient;
 
-import java.awt.EventQueue;
+import java.awt.*;
 import java.util.Vector;
-
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import java.io.*;
+import javax.swing.*;
 
 import it.uni.provaserver.Player;
 import it.uni.provaserver.Players;
 
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
-import javax.swing.border.LineBorder;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.UIManager;
+
+
 
 public class MainGraphic {
 
@@ -40,9 +28,6 @@ public class MainGraphic {
 	private JButton joinButton;
 	private JTextArea rankingTextArea;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -55,15 +40,13 @@ public class MainGraphic {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public MainGraphic() {
 		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inizializza la grafica della frame
+	 * @return void
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -131,6 +114,10 @@ public class MainGraphic {
 		
 	}
 	
+	/**
+	* Inizializza la grafica principale
+	* @return void
+	*/
 	public void loadGraficaDelGioco() {
 		playerNameField.setVisible(false);
 		playerNameLabel.setVisible(false);
@@ -144,6 +131,10 @@ public class MainGraphic {
 		gamePanel.repaint();
 	}
 	
+	/**
+	* Aggiorna la classifica
+	* @return void
+	*/	
 	public void updateRanking() {
 		try {
 			String newRank=(String)in.readObject();
